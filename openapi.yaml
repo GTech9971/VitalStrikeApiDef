@@ -1,0 +1,31 @@
+openapi: "3.0.3"
+info:
+  title: 命中に関するWebAPI
+  version: "1.0"
+tags:
+  - name: hits
+paths:
+  /hits:
+    post:
+      summary: ヒット情報登録
+      description: |-
+        ヒット情報を新規登録する
+      tags:
+        - hits
+      requestBody:
+        $ref: "hits.post.yaml#/components/requestBodies/request"
+      responses:
+        201:
+          $ref: "hits.post.yaml#/components/responses/201"
+
+  /hits/:hitId:
+    get:
+      summary: 特定のヒット情報を取得する
+      parameters:
+        - hitId:
+          $ref: "./models.yaml#/components/parameters/hitId"
+      tags:
+        - hits
+      responses:
+        200:
+          $ref: "./hits-hitId.get.yaml#/components/responses/200"

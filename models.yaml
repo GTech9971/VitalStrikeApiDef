@@ -1,0 +1,151 @@
+openapi: "3.0.3"
+info:
+  title: コアモデル
+  version: "1.0"
+paths: {}
+components:
+  schemas:
+    BodyPart:
+      type: string
+      title: 部位
+      description: |-
+        人間の部位
+      enum:
+        - face
+        - hair
+        - upperBody
+        - leftArm
+        - rightArm
+        - leftHand
+        - rightHand
+        - leftLeg
+        - rightLeg
+        - leftFoot
+        - rightFoot
+
+    Point:
+      title: 座標
+      description: |-
+        x,y座標
+      type: object
+      properties:
+        x:
+          type: number
+          format: double
+          title: x座標
+        y:
+          type: number
+          format: double
+          title: y座標
+      required:
+        - x
+        - y
+
+    Power:
+      title: 攻撃力
+      type: number
+      format: double
+      minimum: 0
+
+    DefensePower:
+      title: 防御力
+      type: number
+      format: double
+      minimum: 0
+      maximum: 0
+
+    Damage:
+      title: ダメージ
+      type: number
+      format: double
+      minimum: 0
+
+    isCritical:
+      title: クリティカルかどうか
+      type: boolean
+
+    HP:
+      title: ヒットポイント
+      type: number
+      format: double
+      minimum: 0
+      maximum: 100
+
+    BodyPartHP:
+      title: ヒットポイント各部位
+      type: object
+      properties:
+        face:
+          $ref: "#/components/schemas/HP"
+        upperBody:
+          $ref: "#/components/schemas/HP"
+        leftArm:
+          $ref: "#/components/schemas/HP"
+        rightArm:
+          $ref: "#/components/schemas/HP"
+        leftHand:
+          $ref: "#/components/schemas/HP"
+        rightHand:
+          $ref: "#/components/schemas/HP"
+        leftLeg:
+          $ref: "#/components/schemas/HP"
+        rightLeg:
+          $ref: "#/components/schemas/HP"
+        leftFoot:
+          $ref: "#/components/schemas/HP"
+        rightFoot:
+          $ref: "#/components/schemas/HP"
+      required:
+        - face
+        - upperBody
+        - leftArm
+        - rightArm
+        - leftHand
+        - rightHand
+        - leftLeg
+        - rightLeg
+        - leftFoot
+        - rightFoot
+
+    AttackerId:
+      title: 攻撃者ID
+      type: string
+      format: uuid
+
+    TargetId:
+      title: ターゲットID
+      type: string
+      format: uuid
+
+    Target:
+      title: ターゲット情報
+      type: object
+      properties:
+        targetId:
+          $ref: "#/components/schemas/TargetId"
+        name:
+          title: ターゲットの名前
+          type: string
+          example: "ターゲット太郎"
+        hp:
+          $ref: "#/components/schemas/HP"
+        bodyPartHP:
+          $ref: "#/components/schemas/BodyPartHP"
+      required:
+        - name
+        - targetId
+        - hp
+        - bodyPartHP
+
+    HitId:
+      title: ヒットID
+      type: string
+
+  parameters:
+    hitId:
+      name: hitId
+      in: path
+      description: ヒットID
+      required: true
+      schema:
+        $ref: "#/components/parameters/hitId"

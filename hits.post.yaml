@@ -1,0 +1,64 @@
+openapi: "3.0.3"
+info:
+  title: "ヒット情報新規登録"
+  version: "1.0"
+paths: {}
+components:
+  requestBodies:
+    request:
+      required: true
+      description: |-
+        - 攻撃者
+        - ターゲット
+        - ヒット座標
+          - 記録用
+        - ヒット部分
+        - ヒット日時
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              attackerId:
+                $ref: "./models.yaml#/components/schemas/AttackerId"
+              targetId:
+                $ref: "./models.yaml#/components/schemas/TargetId"
+              hitPoint:
+                $ref: "./models.yaml#/components/schemas/Point"
+              hitZone:
+                $ref: "./models.yaml#/components/schemas/BodyPart"
+              hitAt:
+                title: ヒット日時
+                type: string
+                format: date-time
+            required:
+              - attackerId
+              - targetId
+              - hitPoint
+              - hitZone
+              - hitAt
+  responses:
+    201:
+      description: |-
+        ヒット結果
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              damage:
+                $ref: "./models.yaml#/components/schemas/Damage"
+              isCritical:
+                $ref: "./models.yaml#/components/schemas/isCritical"
+              target:
+                title: ターゲットのHP
+                type: object
+                properties:
+                  hp:
+                    $ref: "./models.yaml#/components/schemas/HP"
+                  details:
+                    $ref: "./models.yaml#/components/schemas/BodyPartHP"
+            required:
+              - damage
+              - isCritical
+              - target
