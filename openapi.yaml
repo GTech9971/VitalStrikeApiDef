@@ -12,6 +12,7 @@ paths:
         ヒット情報を新規登録する
       tags:
         - hits
+      operationId: "registryHit"
       requestBody:
         $ref: "hits.post.yaml#/components/requestBodies/request"
       responses:
@@ -26,6 +27,7 @@ paths:
           $ref: "./models.yaml#/components/parameters/hitId"
       tags:
         - hits
+      operationId: "fetchHit"
       responses:
         200:
           $ref: "./hits-hitId.get.yaml#/components/responses/200"
