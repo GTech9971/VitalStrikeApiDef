@@ -14,7 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. OpenAPI Generator を実行してコードを生成
+      # 2. GitVersion でバージョン番号を取得
+      - name: Use GitVersion
+        uses: gittools/actions/gitversion/execute@v0
+        id: gitversion
+
+      # 3. OpenAPI Generator を実行してコードを生成
       - name: Generate code from OpenAPI spec
         run: |
           # 必要に応じて OpenAPI Generator CLI をインストール
@@ -26,14 +31,22 @@ jobs:
             -g aspnetcore \
             -o ./generated-server \
             -c ./server.config.json
+    
+      # 4. バージョン番号を更新
+      - name: Update version in .csproj
+        run: |
+          cd generated-server/src/VitalStrike.Models
+          # GitVersion からのバージョン番号を利用
+          VERSION=${{ steps.gitversion.outputs.semver }}
+          sed -i "s/<Version>.*<\/Version>/<Version>${VERSION}<\/Version>/" *.csproj
 
-      # 3. NuGet パッケージの作成
+      # 5. NuGet パッケージの作成
       - name: Build NuGet Package
         run: |
           cd generated-server/src/VitalStrike.Models
           dotnet pack -c Release
 
-      # 4. NuGet にパッケージをアップロード
+      # 6. NuGet にパッケージをアップロード
       - name: Publish to NuGet
         run: |
           cd generated-server/src/VitalStrike.Models
