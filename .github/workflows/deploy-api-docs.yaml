@@ -10,14 +10,22 @@ defaults:
 
 jobs:
   build-and-deploy-api-doc:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
         contents: write
+        pages: write
+        id-token: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
       
       - name: Install Redoc CLI
         run: npm install -g @redocly/cli
@@ -25,8 +33,12 @@ jobs:
       - name: Generate doc from OpenAPI spec
         run: redocly build-docs ./openapi.yaml -o docs.html
 
-      - name: Deploy to GitHUb Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-            github_token: ${{secrets.GITHUB_TOKEN}}
-            publish_dir: .
+          # Upload entire repository
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
