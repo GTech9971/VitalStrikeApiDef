@@ -36,6 +36,7 @@ jobs:
       # 4. NuGet にパッケージをアップロード
       - name: Publish to NuGet
         run: |
-          dotnet nuget push ./generated-server/bin/Release/*.nupkg \
+          cd generated-server
+          dotnet nuget push /bin/Release/*.nupkg \
             -s https://api.nuget.org/v3/index.json \
             -k ${{ secrets.NUGET_API_KEY }}
