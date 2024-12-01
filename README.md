@@ -1,5 +1,5 @@
 # VitalStrike Api Definition
 
-## ヒット情報
+## Documentation
 
-## ヒット計算
+[APIドキュメントページ](https://gtech9971.github.io/VitalStrikeApiDef/docs.html)
