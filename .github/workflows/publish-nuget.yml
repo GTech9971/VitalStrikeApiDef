@@ -1,0 +1,41 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    branches:
+      - main  # main ブランチへのプッシュをトリガー
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. リポジトリをチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. OpenAPI Generator を実行してコードを生成
+      - name: Generate code from OpenAPI spec
+        run: |
+          # 必要に応じて OpenAPI Generator CLI をインストール
+          curl -L https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/6.6.0/openapi-generator-cli-6.6.0.jar -o openapi-generator-cli.jar
+          
+          # コード生成
+          java -jar openapi-generator-cli.jar generate \
+            -i ./openapi.yaml \ # OpenAPI の仕様ファイルへのパス
+            -g aspnetcore \ # 使用するジェネレーター（C# の場合）
+            -o ./generated-server  # 生成されたコードの出力先
+            -c ./server.config.json
+
+      # 3. NuGet パッケージの作成
+      - name: Build NuGet Package
+        run: |
+          cd generated-server
+          dotnet pack -c Release
+
+      # 4. NuGet にパッケージをアップロード
+      - name: Publish to NuGet
+        run: |
+          dotnet nuget push ./generated-server/bin/Release/*.nupkg \
+            -s https://api.nuget.org/v3/index.json \
+            -k ${{ secrets.NUGET_API_KEY }}
