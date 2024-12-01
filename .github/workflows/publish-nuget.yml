@@ -40,13 +40,13 @@ jobs:
 
             # 新しいバージョン番号を作成
             NEW_VERSION="${version_parts[0]}.${version_parts[1]}.$PATCH"
+            echo ${NEW_VERSION}
 
       # 4. バージョン番号を更新
       - name: Update version in .csproj
         run: |
           cd generated-server/src/VitalStrike.Models
           # GitVersion からのバージョン番号を利用
-          VERSION=${{ steps.gitversion.outputs.semver }}
           sed -i "s/<Version>.*<\/Version>/<Version>${NEW_VERSION}<\/Version>/" *.csproj
 
       # 5. NuGet パッケージの作成
