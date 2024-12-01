@@ -22,9 +22,9 @@ jobs:
           
           # コード生成
           java -jar openapi-generator-cli.jar generate \
-            -i ./openapi.yaml \ # OpenAPI の仕様ファイルへのパス
-            -g aspnetcore \ # 使用するジェネレーター（C# の場合）
-            -o ./generated-server  # 生成されたコードの出力先
+            -i ./openapi.yaml \
+            -g aspnetcore \
+            -o ./generated-server \
             -c ./server.config.json
 
       # 3. NuGet パッケージの作成
