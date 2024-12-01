@@ -21,7 +21,7 @@ jobs:
         run: npm install -g @redocly/cli
 
       - name: Generate doc from OpenAPI spec
-        run: redoc-cli bundle ./openapi.yaml -o docs.html
+        run: redocly build-docs ./openapi.yaml -o docs.html
 
       - name: Deploy to GitHUb Pages
         uses: peaceiris/actions-gh-pages@v3
