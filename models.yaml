@@ -140,6 +140,7 @@ components:
     HitId:
       title: ヒットID
       type: string
+      format: uuid
 
   parameters:
     hitId:
@@ -148,4 +149,4 @@ components:
       description: ヒットID
       required: true
       schema:
-        $ref: "#/components/parameters/hitId"
+        $ref: "#/components/schemas/HitId"
