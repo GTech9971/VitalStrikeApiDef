@@ -11,23 +11,27 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              attackerId:
-                $ref: "./models.yaml#/components/schemas/AttackerId"
-              hitPoint:
-                $ref: "./models.yaml#/components/schemas/Point"
-              hitZone:
-                $ref: "./models.yaml#/components/schemas/BodyPart"
-              hitAt:
-                title: ヒット日時
-                type: string
-                format: date-time
-              target:
-                $ref: "./models.yaml#/components/schemas/Target"
-            required:
-              - attackerId
-              - hitPoint
-              - hitZone
-              - hitAt
-              - target
+            $ref: "#/components/schemas/fetchHitResponse"
+
+  schemas:
+    fetchHitResponse:
+      type: object
+      properties:
+        attackerId:
+          $ref: "./models.yaml#/components/schemas/AttackerId"
+        hitPoint:
+          $ref: "./models.yaml#/components/schemas/Point"
+        hitZone:
+          $ref: "./models.yaml#/components/schemas/BodyPart"
+        hitAt:
+          title: ヒット日時
+          type: string
+          format: date-time
+        target:
+          $ref: "./models.yaml#/components/schemas/Target"
+      required:
+        - attackerId
+        - hitPoint
+        - hitZone
+        - hitAt
+        - target

@@ -51,24 +51,28 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              hitId:
-                $ref: "./models.yaml#/components/schemas/HitId"
-              damage:
-                $ref: "./models.yaml#/components/schemas/Damage"
-              isCritical:
-                $ref: "./models.yaml#/components/schemas/isCritical"
-              target:
-                title: ターゲットのHP
-                type: object
-                properties:
-                  hp:
-                    $ref: "./models.yaml#/components/schemas/HP"
-                  details:
-                    $ref: "./models.yaml#/components/schemas/BodyPartHP"
-            required:
-              - hitId
-              - damage
-              - isCritical
-              - target
+            $ref: "#/components/schemas/registryHitResponse"
+
+  schemas:
+    registryHitResponse:
+      type: object
+      properties:
+        hitId:
+          $ref: "./models.yaml#/components/schemas/HitId"
+        damage:
+          $ref: "./models.yaml#/components/schemas/Damage"
+        isCritical:
+          $ref: "./models.yaml#/components/schemas/isCritical"
+        target:
+          title: ターゲットのHP
+          type: object
+          properties:
+            hp:
+              $ref: "./models.yaml#/components/schemas/HP"
+            details:
+              $ref: "./models.yaml#/components/schemas/BodyPartHP"
+      required:
+        - hitId
+        - damage
+        - isCritical
+        - target
