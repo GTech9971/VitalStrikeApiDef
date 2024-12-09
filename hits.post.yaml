@@ -55,6 +55,7 @@ components:
 
   schemas:
     registryHitResponse:
+      title: ヒット情報登録レスポンス
       type: object
       properties:
         hitId:

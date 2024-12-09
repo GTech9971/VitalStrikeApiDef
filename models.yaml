@@ -31,11 +31,13 @@ components:
       properties:
         x:
           type: number
-          format: double
+          format: int
+          example: 32
           title: x座標
         y:
           type: number
-          format: double
+          format: int
+          example: 651
           title: y座標
       required:
         - x

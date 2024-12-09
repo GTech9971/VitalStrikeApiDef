@@ -15,6 +15,7 @@ components:
 
   schemas:
     fetchHitResponse:
+      title: ヒット情報取得レスポンス
       type: object
       properties:
         attackerId:
