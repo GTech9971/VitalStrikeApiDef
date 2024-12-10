@@ -5,6 +5,22 @@ info:
 paths: {}
 components:
   schemas:
+    Error:
+      title: エラー
+      type: object
+      properties:
+        code:
+          title: エラーコード
+          type: number
+          format: int32
+          maxLength: 4
+        message:
+          title: エラーメッセージ
+          type: string
+      required:
+        - code
+        - message
+
     BodyPart:
       type: string
       title: 部位

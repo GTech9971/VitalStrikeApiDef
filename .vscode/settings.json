@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "openapi"
+    ],
+    "github-actions.workflows.pinned.workflows": [
+        ".github/workflows/deploy-api-docs.yaml"
     ]
 }

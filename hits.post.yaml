@@ -52,6 +52,15 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/registryHitResponse"
+    404:
+      description: "存在しない"
+      content:
+        application/json:
+          schema:
+            $ref: "./models.yaml#/components/schemas/Error"
+          examples:
+            UserNotFound:
+              $ref: "#/components/examples/UserNotFound"
 
   schemas:
     registryHitResponse:
@@ -77,3 +86,10 @@ components:
         - damage
         - isCritical
         - target
+
+  examples:
+    UserNotFound:
+      description: ユーザーが存在しない
+      value:
+        code: 1000
+        message: "ユーザーが存在しません。"
